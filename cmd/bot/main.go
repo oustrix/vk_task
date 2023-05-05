@@ -1,8 +1,17 @@
 package main
 
-import "vk_bot/internal/app"
+import (
+	"log"
+	"vk_bot/config"
+	"vk_bot/internal/app"
+)
 
 func main() {
-	a := app.NewApp()
+	cfg, err := config.NewConfig()
+	if err != nil {
+		log.Fatalf("error while reading config: %v\n", err)
+	}
+
+	a := app.NewApp(cfg)
 	a.Start()
 }
