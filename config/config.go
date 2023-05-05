@@ -7,7 +7,7 @@ type (
 	}
 
 	Bot struct {
-		Token string
+		Token string `env:"BOT_TOKEN" env-required:"true"`
 	}
 )
 
