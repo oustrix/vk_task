@@ -1,6 +1,7 @@
 package app
 
 import (
+	"log"
 	"vk_bot/config"
 	"vk_bot/internal/bot"
 )
@@ -17,7 +18,15 @@ func NewApp(cfg *config.Config) *App {
 }
 
 func (a *App) Start() {
+	if len(a.cfg.Bot.Token) == 0 {
+		log.Fatalf("bot token is empty")
+	}
 
-	a.bot = bot.NewBot(a.cfg.Bot.Token)
+	a.bot = bot.NewBot(a.cfg.Bot.Token, a.cfg.Bot.GroupID)
+
+	err := a.bot.Polling()
+	if err != nil {
+		log.Println(err)
+	}
 
 }

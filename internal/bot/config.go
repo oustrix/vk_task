@@ -1,7 +1,8 @@
 package bot
 
 type botConfig struct {
-	token string
+	token   string
+	groupID string
 }
 
 func newConfig() *botConfig {
