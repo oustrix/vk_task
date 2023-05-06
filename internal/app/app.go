@@ -3,12 +3,12 @@ package app
 import (
 	"log"
 	"vk_bot/config"
-	"vk_bot/internal/bot"
+	"vk_bot/pkg/botapi"
 )
 
 type App struct {
 	cfg *config.Config
-	bot *bot.Bot
+	bot *botapi.Bot
 }
 
 func NewApp(cfg *config.Config) *App {
@@ -22,7 +22,7 @@ func (a *App) Start() {
 		log.Fatalf("bot token is empty")
 	}
 
-	a.bot = bot.NewBot(a.cfg.Bot.Token, a.cfg.Bot.GroupID)
+	a.bot = botapi.NewBot(a.cfg.Bot.Token, a.cfg.Bot.GroupID)
 
 	err := a.bot.Polling()
 	if err != nil {

@@ -1,4 +1,4 @@
-package bot
+package botapi
 
 const (
 	_LongPollWaitDefault = "25"

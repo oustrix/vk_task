@@ -1,4 +1,4 @@
-package bot
+package botapi
 
 import (
 	"encoding/json"
@@ -19,6 +19,7 @@ const (
 	apiVersion            = "5.131"
 )
 
+// Polling is main polling function
 func (b *Bot) Polling() error {
 	details, err := b.getLongPollSession()
 	if err != nil {
@@ -31,6 +32,7 @@ func (b *Bot) Polling() error {
 	return nil
 }
 
+// getLongPollSession is for get session data
 func (b *Bot) getLongPollSession() (*longPollDetails, error) {
 	params := url.Values{}
 	params.Add("access_token", b.cfg.token)

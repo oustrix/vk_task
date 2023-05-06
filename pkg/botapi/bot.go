@@ -1,4 +1,4 @@
-package bot
+package botapi
 
 type Bot struct {
 	token string
