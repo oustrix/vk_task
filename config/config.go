@@ -1,6 +1,10 @@
 package config
 
-import "github.com/ilyakaznacheev/cleanenv"
+import (
+	"github.com/ilyakaznacheev/cleanenv"
+	"github.com/joho/godotenv"
+	"strings"
+)
 
 type (
 	Config struct {
@@ -17,6 +21,11 @@ func NewConfig() (*Config, error) {
 
 	// Read config from .yml file (basic settings)
 	err := cleanenv.ReadConfig("./config/config.yml", &cfg)
+	if err != nil && !strings.Contains(err.Error(), "EOF") {
+		return nil, err
+	}
+
+	err = godotenv.Load()
 	if err != nil {
 		return nil, err
 	}
