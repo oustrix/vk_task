@@ -13,3 +13,7 @@ func NewBot(token string, groupID string) *Bot {
 		cfg: botCfg,
 	}
 }
+
+func (b *Bot) SetTimeout(timeout int) {
+	b.cfg.pollConfig.wait = timeout
+}

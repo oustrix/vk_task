@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"strconv"
 )
 
 type longPollDetails struct {
@@ -19,15 +20,20 @@ const (
 	apiVersion            = "5.131"
 )
 
-// Polling is main polling function
-func (b *Bot) Polling() error {
+// InitSession is using for init session
+func (b *Bot) InitSession() error {
 	details, err := b.getLongPollSession()
 	if err != nil {
 		return err
 	}
 
+	ts, err := strconv.Atoi(details.TS)
+	if err != nil {
+		return errors.New("error while converting TS to integer")
+	}
+
 	b.cfg.pollConfig = newLongPollConfig(
-		details.Server, details.Key, details.TS)
+		details.Server, details.Key, ts)
 
 	return nil
 }

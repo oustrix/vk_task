@@ -1,7 +1,7 @@
 package botapi
 
 const (
-	_LongPollWaitDefault = "25"
+	_LongPollWaitDefault = 25
 )
 
 type botConfig struct {
@@ -13,15 +13,15 @@ type botConfig struct {
 type longPollConfig struct {
 	server string
 	key    string
-	ts     string
-	wait   string
+	ts     int
+	wait   int
 }
 
 func newBotConfig() *botConfig {
 	return &botConfig{}
 }
 
-func newLongPollConfig(server, key, ts string) *longPollConfig {
+func newLongPollConfig(server, key string, ts int) *longPollConfig {
 	return &longPollConfig{
 		server: server,
 		key:    key,
