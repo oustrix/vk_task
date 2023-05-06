@@ -24,7 +24,7 @@ func (a *App) Start() {
 
 	a.bot = botapi.NewBot(a.cfg.Bot.Token, a.cfg.Bot.GroupID)
 
-	err := a.bot.Polling()
+	err := a.bot.InitSession()
 	if err != nil {
 		log.Println(err)
 	}
