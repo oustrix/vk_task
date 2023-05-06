@@ -8,11 +8,12 @@ import (
 
 type (
 	Config struct {
-		Bot
+		Bot `yaml:"bot"`
 	}
 
 	Bot struct {
-		Token string `env:"BOT_TOKEN" env-required:"true"`
+		Token   string `env:"BOT_TOKEN" env-required:"true"`
+		GroupID string `env:"GROUP_ID" yaml:"group_id" env-required:"true"`
 	}
 )
 
