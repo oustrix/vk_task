@@ -1,19 +1,24 @@
 package botapi
 
+const (
+	_BotBufferDefault = 100
+)
+
 type Bot struct {
-	cfg *botConfig
+	token      string
+	GroupID    string
+	Buffer     int
+	PollConfig *longPollConfig
 }
 
 func NewBot(token string, groupID string) *Bot {
-	botCfg := newBotConfig()
-	botCfg.token = token
-	botCfg.groupID = groupID
-
 	return &Bot{
-		cfg: botCfg,
+		token:   token,
+		GroupID: groupID,
+		Buffer:  _BotBufferDefault,
 	}
 }
 
 func (b *Bot) SetTimeout(timeout int) {
-	b.cfg.pollConfig.wait = timeout
+	b.PollConfig.wait = timeout
 }

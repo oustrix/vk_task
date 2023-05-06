@@ -32,7 +32,7 @@ func (b *Bot) InitSession() error {
 		return errors.New("error while converting TS to integer")
 	}
 
-	b.cfg.pollConfig = newLongPollConfig(
+	b.PollConfig = newLongPollConfig(
 		details.Server, details.Key, ts)
 
 	return nil
@@ -41,9 +41,9 @@ func (b *Bot) InitSession() error {
 // getLongPollSession is for get session data
 func (b *Bot) getLongPollSession() (*longPollDetails, error) {
 	params := url.Values{}
-	params.Add("access_token", b.cfg.token)
+	params.Add("access_token", b.token)
 	params.Add("v", apiVersion)
-	params.Add("group_id", b.cfg.groupID)
+	params.Add("group_id", b.GroupID)
 
 	u, _ := url.ParseRequestURI(longPollServerRequest)
 	u.RawQuery = params.Encode()
