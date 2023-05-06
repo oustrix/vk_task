@@ -13,7 +13,7 @@ type session struct {
 }
 
 func NewBot(token string, groupID string) *Bot {
-	botCfg := newConfig()
+	botCfg := newBotConfig()
 	botCfg.token = token
 	botCfg.groupID = groupID
 

@@ -5,6 +5,6 @@ type botConfig struct {
 	groupID string
 }
 
-func newConfig() *botConfig {
+func newBotConfig() *botConfig {
 	return &botConfig{}
 }
