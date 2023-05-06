@@ -1,15 +1,8 @@
 package bot
 
 type Bot struct {
-	token   string
-	cfg     *botConfig
-	session session
-}
-
-type session struct {
-	key    string
-	server string
-	ts     int
+	token string
+	cfg   *botConfig
 }
 
 func NewBot(token string, groupID string) *Bot {

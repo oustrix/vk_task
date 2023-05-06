@@ -6,10 +6,9 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
-	"strconv"
 )
 
-type longPollServerResponse map[string]struct {
+type longPollDetails struct {
 	Key    string `json:"key"`
 	Server string `json:"server"`
 	TS     string `json:"ts"`
@@ -21,16 +20,18 @@ const (
 )
 
 func (b *Bot) Polling() error {
-	s, err := b.getLongPollSession()
+	details, err := b.getLongPollSession()
 	if err != nil {
 		return err
 	}
-	b.session = s
+
+	b.cfg.pollConfig = newLongPollConfig(
+		details.Server, details.Key, details.TS)
 
 	return nil
 }
 
-func (b *Bot) getLongPollSession() (session, error) {
+func (b *Bot) getLongPollSession() (*longPollDetails, error) {
 	params := url.Values{}
 	params.Add("access_token", b.cfg.token)
 	params.Add("v", apiVersion)
@@ -42,26 +43,21 @@ func (b *Bot) getLongPollSession() (session, error) {
 
 	response, err := http.Get(url)
 	if err != nil {
-		return session{}, err
+		return &longPollDetails{}, err
 	}
 
 	dec := json.NewDecoder(response.Body)
 
-	var res longPollServerResponse
+	var res map[string]longPollDetails
 	err = dec.Decode(&res)
 	if err != nil {
-		return session{}, err
+		return &longPollDetails{}, err
 	}
 
-	s := res["response"]
-	ts, err := strconv.Atoi(s.TS)
-	if err != nil {
-		return session{}, errors.New("error while converting TS to integer")
+	details, ok := res["response"]
+	if !ok {
+		return &longPollDetails{}, errors.New("there is no \"response\" field in server response")
 	}
 
-	return session{
-		key:    s.Key,
-		server: s.Server,
-		ts:     ts,
-	}, nil
+	return &details, nil
 }
