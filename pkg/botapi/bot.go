@@ -1,8 +1,7 @@
 package botapi
 
 type Bot struct {
-	token string
-	cfg   *botConfig
+	cfg *botConfig
 }
 
 func NewBot(token string, groupID string) *Bot {
