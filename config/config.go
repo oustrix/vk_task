@@ -20,14 +20,14 @@ type (
 func NewConfig() (*Config, error) {
 	var cfg Config
 
-	// Read config from .yml file (basic settings)
-	err := cleanenv.ReadConfig("./config/config.yml", &cfg)
-	if err != nil && !strings.Contains(err.Error(), "EOF") {
+	err := godotenv.Load()
+	if err != nil {
 		return nil, err
 	}
 
-	err = godotenv.Load()
-	if err != nil {
+	// Read config from .yml file (basic settings)
+	err = cleanenv.ReadConfig("./config/config.yml", &cfg)
+	if err != nil && !strings.Contains(err.Error(), "EOF") {
 		return nil, err
 	}
 
