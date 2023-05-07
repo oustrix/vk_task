@@ -20,7 +20,3 @@ func NewBot(token string, groupID string) *Bot {
 		shutdownChannel: make(chan interface{}),
 	}
 }
-
-func (b *Bot) SetTimeout(timeout int) {
-	b.PollConfig.wait = timeout
-}

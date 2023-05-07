@@ -29,4 +29,9 @@ func (a *App) Start() {
 		log.Println(err)
 	}
 
+	updates := a.bot.GetUpdatesChan()
+	for update := range updates {
+		log.Printf("%+v\n", update)
+	}
+
 }
