@@ -8,7 +8,7 @@ type longPollConfig struct {
 	server string
 	key    string
 	ts     int
-	wait   int
+	Wait   int
 }
 
 func newLongPollConfig(server, key string, ts int) *longPollConfig {
@@ -16,6 +16,6 @@ func newLongPollConfig(server, key string, ts int) *longPollConfig {
 		server: server,
 		key:    key,
 		ts:     ts,
-		wait:   _LongPollWaitDefault,
+		Wait:   _LongPollWaitDefault,
 	}
 }
