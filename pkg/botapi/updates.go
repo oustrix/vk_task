@@ -16,14 +16,6 @@ type Update struct {
 	Object map[string]interface{} `json:"object"`
 }
 
-type Message struct {
-	ID     int    `json:"id"`
-	Date   int    `json:"date"`
-	PeerID int    `json:"peer_id"`
-	FromID int    `json:"from_id"`
-	Text   string `json:"text"`
-}
-
 type UpdatesChannel <-chan Update
 
 func (b *Bot) GetUpdates() ([]Update, error) {
@@ -53,7 +45,7 @@ func (b *Bot) GetUpdates() ([]Update, error) {
 	if resBody["failed"] != nil {
 		if resBody["failed"].(float64) == 1 {
 			b.PollConfig.ts = int(resBody["ts"].(float64))
-		} else {
+		} else { // update key and ts if error is not 1
 			err := b.InitSession()
 			if err != nil {
 				return nil, err
@@ -63,6 +55,7 @@ func (b *Bot) GetUpdates() ([]Update, error) {
 		return nil, errors.New("failed to get updates. code: " + fmt.Sprintf("%v", resBody["failed"].(float64)))
 	}
 
+	// update ts after each request
 	b.PollConfig.ts, err = strconv.Atoi(resBody["ts"].(string))
 	if err != nil {
 		return nil, errors.New("error while converting TS to integer")
