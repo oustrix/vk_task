@@ -1,5 +1,5 @@
 package service
 
 type Services struct {
-	Greeting GreetingService
+	User UserService
 }
