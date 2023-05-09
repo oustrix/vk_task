@@ -49,7 +49,7 @@ type MessageConfig struct {
 	Forward         ForwardMessages `url:"forward,omitempty"`
 	StickerID       int             `url:"sticker_id,omitempty"`
 	GroupID         int             `url:"group_id,omitempty"`
-	Keyboard        Keyboard        `url:"keyboard,omitempty"`
+	Keyboard        []Keyboard      `url:"keyboard,omitempty"`
 	Template        MessageTemplate `url:"template,omitempty"`
 	Payload         string          `url:"payload,omitempty"`
 	ContentSource   string          `url:"content_source,omitempty"`
@@ -104,7 +104,7 @@ func (b *Bot) SendMessage(config *MessageConfig) error {
 
 	if resBody["error"] != nil {
 		errCode := int(resBody["error"].(map[string]interface{})["error_code"].(float64))
-		return fmt.Errorf("error code %d: %s", errCode, SendMessageErrorCodes[errCode])
+		return fmt.Errorf("Error send message. Code %d: %s", errCode, SendMessageErrorCodes[errCode])
 	}
 
 	return nil
@@ -113,7 +113,7 @@ func (b *Bot) SendMessage(config *MessageConfig) error {
 func (b *Bot) CallMethod(method string, params string) (*http.Response, error) {
 	apiURL := "https://api.vk.com/method/"
 
-	endpoint := apiURL + method + "?" + params + "&access_token=" + b.token + "&v" + apiVersion
+	endpoint := apiURL + method + "?" + params + "&access_token=" + b.token + "&v=" + apiVersion
 
 	return http.Get(endpoint)
 }
