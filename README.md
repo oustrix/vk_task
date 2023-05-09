@@ -19,6 +19,7 @@
 - [Godotenv](https://github.com/joho/godotenv) - чтение переменных окружения из файла .env
 - [Query](https://github.com/google/go-querystring) - парсинг структур в query-параметры
 - [Mapstructure](https://github.com/mitchellh/mapstructure) - преобразование ответов API в структуры
+- [Require](https://github.com/stretchr/testify/require) - упрощение тестирования
 
 ## Запуск бота
 1. Загрузить проект
