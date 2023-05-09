@@ -1,4 +1,4 @@
-module vk_bot
+module vk_task
 
 go 1.19
 
