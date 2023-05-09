@@ -71,7 +71,7 @@ type MessageTemplate struct {
 	Title       string                 `url:"title,omitempty"`
 	Description string                 `url:"description,omitempty"`
 	PhotoID     string                 `url:"photo_id,omitempty"`
-	Buttons     []Button               `url:"buttons,omitempty"`
+	Buttons     []KeyboardButton       `url:"buttons,omitempty"`
 	Action      map[string]interface{} `url:"action,omitempty"`
 }
 
