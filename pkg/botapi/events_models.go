@@ -63,7 +63,7 @@ type Photo struct {
 	Text    string      `json:"text"`
 	Date    int         `json:"date"`
 	Sizes   []PhotoSize `json:"sizes"`
-	Widht   int         `json:"width"`
+	Width   int         `json:"width"`
 	Height  int         `json:"height"`
 }
 
