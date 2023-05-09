@@ -4,7 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/google/go-querystring/query"
+	"log"
 	"net/http"
+	"net/url"
+	"reflect"
 )
 
 var SendMessageErrorCodes = map[int]string{
@@ -71,7 +74,7 @@ type MessageTemplate struct {
 	Title       string                 `url:"title,omitempty"`
 	Description string                 `url:"description,omitempty"`
 	PhotoID     string                 `url:"photo_id,omitempty"`
-	Buttons     []KeyboardButton       `url:"buttons,omitempty"`
+	Buttons     [][]KeyboardButton     `url:"buttons,omitempty"`
 	Action      map[string]interface{} `url:"action,omitempty"`
 }
 
@@ -80,12 +83,22 @@ func (b *Bot) SendMessage(config *MessageConfig) error {
 		return fmt.Errorf("message or attachment required")
 	}
 
-	params, err := query.Values(*config)
+	params, err := query.Values(config)
 	if err != nil {
 		return err
 	}
 
-	res, err := b.CallMethod("messages.send", params.Encode())
+	paramsString := params.Encode()
+
+	// override keyboard
+	if !reflect.DeepEqual(config.Keyboard, Keyboard{}) {
+		keyboard, err := json.Marshal(config.Keyboard)
+		if err != nil {
+			return err
+		}
+		paramsString += "&" + "keyboard=" + url.PathEscape(string(keyboard)) + "&"
+	}
+	res, err := b.CallMethod("messages.send", paramsString)
 	if err != nil {
 		return err
 	}
@@ -104,6 +117,7 @@ func (b *Bot) SendMessage(config *MessageConfig) error {
 
 	if resBody["error"] != nil {
 		errCode := int(resBody["error"].(map[string]interface{})["error_code"].(float64))
+		log.Println(resBody["error"])
 		return fmt.Errorf("Error send message. Code %d: %s", errCode, SendMessageErrorCodes[errCode])
 	}
 
