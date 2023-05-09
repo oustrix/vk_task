@@ -12,8 +12,11 @@ import (
 )
 
 type Update struct {
-	Type   string                 `json:"type"`
-	Object map[string]interface{} `json:"object"`
+	Type    string                 `json:"type"`
+	EventID string                 `json:"event_id"`
+	V       string                 `json:"v"`
+	Object  map[string]interface{} `json:"object"`
+	GroupID int                    `json:"group_id"`
 }
 
 type UpdatesChannel <-chan Update
