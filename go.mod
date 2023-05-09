@@ -6,6 +6,7 @@ require (
 	github.com/google/go-querystring v1.1.0
 	github.com/ilyakaznacheev/cleanenv v1.4.2
 	github.com/joho/godotenv v1.4.0
+	github.com/mitchellh/mapstructure v1.5.0
 )
 
 require (
