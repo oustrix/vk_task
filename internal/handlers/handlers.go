@@ -29,7 +29,13 @@ func (h *Handler) handleUpdate(update botapi.Update) {
 	switch update.Type {
 	case botapi.MessageNew:
 		var message botapi.NewMessage
-		err := mapstructure.Decode(update.Object, &message)
+		cfg := &mapstructure.DecoderConfig{
+			Metadata: nil,
+			Result:   &message,
+			TagName:  "json",
+		}
+		decoder, _ := mapstructure.NewDecoder(cfg)
+		err := decoder.Decode(update.Object)
 		if err != nil {
 			log.Println(err)
 			return
