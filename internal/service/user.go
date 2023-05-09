@@ -2,6 +2,7 @@ package service
 
 import (
 	"log"
+	"vk_bot/internal/keyboards"
 	"vk_bot/pkg/botapi"
 )
 
@@ -24,6 +25,7 @@ func (u *UserService) Greeting(userID int) {
 		UserID:   userID,
 		RandomID: 0,
 		Message:  greetingMessage,
+		Keyboard: keyboards.NewGreetingKeyboard(),
 	}
 
 	err := u.bot.SendMessage(&msg)
