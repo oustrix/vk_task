@@ -184,15 +184,15 @@ type AudioMessage struct {
 }
 
 type Link struct {
-	URL         string  `json:"url"`
-	Title       string  `json:"title"`
-	Caption     string  `json:"caption"`
-	Description string  `json:"description"`
-	Photo       Photo   `json:"photo"`
-	Product     Product `json:"product"`
-	Button      Button  `json:"button"`
-	PreviewPage string  `json:"preview_page"`
-	PreviewURL  string  `json:"preview_url"`
+	URL         string     `json:"url"`
+	Title       string     `json:"title"`
+	Caption     string     `json:"caption"`
+	Description string     `json:"description"`
+	Photo       Photo      `json:"photo"`
+	Product     Product    `json:"product"`
+	Button      LinkButton `json:"button"`
+	PreviewPage string     `json:"preview_page"`
+	PreviewURL  string     `json:"preview_url"`
 }
 
 type Product struct {
@@ -210,12 +210,12 @@ type PriceCurrency struct {
 	Name string `json:"name"`
 }
 
-type Button struct {
-	Title  string       `json:"title"`
-	Action ButtonAction `json:"action"`
+type LinkButton struct {
+	Title  string           `json:"title"`
+	Action LinkButtonAction `json:"action"`
 }
 
-type ButtonAction struct {
+type LinkButtonAction struct {
 	Type string `json:"type"`
 	URL  string `json:"url"`
 }
@@ -268,12 +268,12 @@ type MarketCategorySection struct {
 }
 
 type MarketRejectInfo struct {
-	Title              string   `json:"title"`
-	Description        string   `json:"description"`
-	Buttons            []Button `json:"buttons"`
-	ModerationStatus   int      `json:"moderation_status"`
-	InfoLink           string   `json:"info_link"`
-	WhiteToSupportLink string   `json:"write_to_support_link"`
+	Title              string       `json:"title"`
+	Description        string       `json:"description"`
+	Buttons            []LinkButton `json:"buttons"`
+	ModerationStatus   int          `json:"moderation_status"`
+	InfoLink           string       `json:"info_link"`
+	WhiteToSupportLink string       `json:"write_to_support_link"`
 }
 
 type MarketAlbum struct {
@@ -489,7 +489,7 @@ type PrettyCard struct {
 	LinkURL  string            `json:"link_url"`
 	Title    string            `json:"title"`
 	Images   []PrettyCardImage `json:"images"`
-	Button   Button            `json:"button"`
+	Button   LinkButton        `json:"button"`
 	Price    string            `json:"price"`
 	PriceOld string            `json:"price_old"`
 }
@@ -603,10 +603,10 @@ type Keyboard struct {
 }
 
 type KeyboardButton struct {
-	Action KeyboardAction `json:"action"`
+	Action KeyboardButtonAction `json:"action"`
 }
 
-type KeyboardAction struct {
+type KeyboardButtonAction struct {
 	Type    string `json:"type"`
 	Label   string `json:"label"`
 	Payload string `json:"payload"`
