@@ -597,6 +597,16 @@ type GeoPlace struct {
 }
 
 type Keyboard struct {
+	OneTime bool               `json:"one_time"`
+	Buttons [][]KeyboardButton `json:"buttons"`
+	Inline  bool               `json:"inline"`
+}
+
+type KeyboardButton struct {
+	Action KeyboardAction `json:"action"`
+}
+
+type KeyboardAction struct {
 	Type    string `json:"type"`
 	Label   string `json:"label"`
 	Payload string `json:"payload"`
