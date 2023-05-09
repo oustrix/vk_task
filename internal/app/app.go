@@ -2,10 +2,10 @@ package app
 
 import (
 	"log"
-	"vk_bot/config"
-	"vk_bot/internal/handlers"
-	"vk_bot/internal/service"
-	"vk_bot/pkg/botapi"
+	"vk_task/config"
+	"vk_task/internal/handlers"
+	"vk_task/internal/service"
+	"vk_task/pkg/botapi"
 )
 
 type App struct {

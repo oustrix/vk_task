@@ -3,7 +3,7 @@ package handlers
 import (
 	"github.com/mitchellh/mapstructure"
 	"log"
-	"vk_bot/pkg/botapi"
+	"vk_task/pkg/botapi"
 )
 
 func (h *Handler) handleMessageNew(update botapi.Update) {

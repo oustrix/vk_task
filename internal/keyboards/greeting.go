@@ -1,6 +1,6 @@
 package keyboards
 
-import "vk_bot/pkg/botapi"
+import "vk_task/pkg/botapi"
 
 func NewGreetingKeyboard() botapi.Keyboard {
 	return botapi.Keyboard{

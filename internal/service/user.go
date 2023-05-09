@@ -2,8 +2,8 @@ package service
 
 import (
 	"log"
-	"vk_bot/internal/keyboards"
-	"vk_bot/pkg/botapi"
+	"vk_task/internal/keyboards"
+	"vk_task/pkg/botapi"
 )
 
 type UserService struct {

@@ -2,8 +2,8 @@ package main
 
 import (
 	"log"
-	"vk_bot/config"
-	"vk_bot/internal/app"
+	"vk_task/config"
+	"vk_task/internal/app"
 )
 
 func main() {

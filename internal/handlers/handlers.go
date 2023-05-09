@@ -2,8 +2,8 @@ package handlers
 
 import (
 	"log"
-	"vk_bot/internal/service"
-	"vk_bot/pkg/botapi"
+	"vk_task/internal/service"
+	"vk_task/pkg/botapi"
 )
 
 type Handler struct {
