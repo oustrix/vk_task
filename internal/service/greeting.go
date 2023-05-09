@@ -1,6 +1,9 @@
 package service
 
-import "vk_bot/pkg/botapi"
+import (
+	"log"
+	"vk_bot/pkg/botapi"
+)
 
 type GreetingService struct {
 	bot *botapi.Bot
@@ -16,7 +19,7 @@ func NewGreetingService(bot *botapi.Bot) *GreetingService {
 	}
 }
 
-func (g *GreetingService) Greeting(userID int) error {
+func (g *GreetingService) Greeting(userID int) {
 	msg := botapi.MessageConfig{
 		UserID:   userID,
 		RandomID: 0,
@@ -25,5 +28,7 @@ func (g *GreetingService) Greeting(userID int) error {
 
 	err := g.bot.SendMessage(&msg)
 
-	return err
+	if err != nil {
+		log.Println(err)
+	}
 }
