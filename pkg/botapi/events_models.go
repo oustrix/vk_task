@@ -597,23 +597,23 @@ type GeoPlace struct {
 }
 
 type Keyboard struct {
-	OneTime bool               `json:"one_time"`
-	Buttons [][]KeyboardButton `json:"buttons"`
-	Inline  bool               `json:"inline"`
+	OneTime bool               `json:"one_time,omitempty"`
+	Buttons [][]KeyboardButton `json:"buttons,omitempty"`
+	Inline  bool               `json:"inline,omitempty"`
 }
 
 type KeyboardButton struct {
-	Action KeyboardButtonAction `json:"action"`
+	Action KeyboardButtonAction `json:"action,omitempty"`
 }
 
 type KeyboardButtonAction struct {
-	Type    string `json:"type"`
-	Label   string `json:"label"`
-	Payload string `json:"payload"`
-	Link    string `json:"link"`
-	Hash    string `json:"hash"`
-	AppID   int    `json:"app_id"`
-	OwnerID int    `json:"owner_id"`
+	Type    string `json:"type,omitempty"`
+	Label   string `json:"label,omitempty"`
+	Payload string `json:"payload,omitempty"`
+	Link    string `json:"link,omitempty"`
+	Hash    string `json:"hash,omitempty"`
+	AppID   int    `json:"app_id,omitempty"`
+	OwnerID int    `json:"owner_id,omitempty"`
 }
 
 type ClientInfo struct {
