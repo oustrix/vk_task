@@ -49,7 +49,7 @@ type MessageConfig struct {
 	Forward         ForwardMessages `url:"forward,omitempty"`
 	StickerID       int             `url:"sticker_id,omitempty"`
 	GroupID         int             `url:"group_id,omitempty"`
-	Keyboard        []Keyboard      `url:"keyboard,omitempty"`
+	Keyboard        Keyboard        `url:"keyboard,omitempty"`
 	Template        MessageTemplate `url:"template,omitempty"`
 	Payload         string          `url:"payload,omitempty"`
 	ContentSource   string          `url:"content_source,omitempty"`
