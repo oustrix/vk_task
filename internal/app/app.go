@@ -3,12 +3,15 @@ package app
 import (
 	"log"
 	"vk_bot/config"
+	"vk_bot/internal/handlers"
+	"vk_bot/internal/service"
 	"vk_bot/pkg/botapi"
 )
 
 type App struct {
-	cfg *config.Config
-	bot *botapi.Bot
+	cfg      *config.Config
+	bot      *botapi.Bot
+	services *service.Services
 }
 
 func NewApp(cfg *config.Config) *App {
@@ -30,8 +33,13 @@ func (a *App) Start() {
 	}
 
 	updates := a.bot.GetUpdatesChan()
-	for update := range updates {
-		log.Printf("%+v\n", update)
+
+	userService := service.NewUserService(a.bot)
+
+	a.services = &service.Services{
+		User: userService,
 	}
 
+	handler := handlers.NewHandler(a.services, updates)
+	handler.Init()
 }
