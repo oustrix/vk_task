@@ -10,7 +10,7 @@ import (
 	"reflect"
 )
 
-var SendMessageErrorCodes = map[int]string{
+var SendMessageErrorCodes = map[int]string{ //nolint:gochecknoglobals,nolintlint
 	104: "Not found",
 	900: "Can't send messages for users from blacklist",
 	901: "Can't send messages for users without permission",
@@ -43,7 +43,7 @@ type MessageConfig struct {
 	ChatID          int             `url:"chat_id,omitempty"`
 	UserIDs         int             `url:"user_ids,omitempty"`
 	Message         string          `url:"message,omitempty"` // required if no attachment, max length - 4096
-	Guid            string          `url:"guid,omitempty"`
+	GUID            string          `url:"guid,omitempty"`
 	Lat             int             `url:"lat,omitempty"`
 	Long            int             `url:"long,omitempty"`
 	Attachment      string          `url:"attachment,omitempty"` // required if no message
@@ -92,9 +92,9 @@ func (b *Bot) SendMessage(config *MessageConfig) error {
 
 	// override keyboard
 	if !reflect.DeepEqual(config.Keyboard, Keyboard{}) {
-		keyboard, err := json.Marshal(config.Keyboard)
-		if err != nil {
-			return err
+		keyboard, err2 := json.Marshal(config.Keyboard)
+		if err2 != nil {
+			return err2
 		}
 		paramsString += "&" + "keyboard=" + url.PathEscape(string(keyboard)) + "&"
 	}
@@ -102,8 +102,9 @@ func (b *Bot) SendMessage(config *MessageConfig) error {
 	if err != nil {
 		return err
 	}
+	defer res.Body.Close() //nolint:errcheck
 
-	if res.StatusCode != 200 {
+	if res.StatusCode != http.StatusOK {
 		return fmt.Errorf("status code %d", res.StatusCode)
 	}
 
@@ -118,7 +119,7 @@ func (b *Bot) SendMessage(config *MessageConfig) error {
 	if resBody["error"] != nil {
 		errCode := int(resBody["error"].(map[string]interface{})["error_code"].(float64))
 		log.Println(resBody["error"])
-		return fmt.Errorf("Error send message. Code %d: %s", errCode, SendMessageErrorCodes[errCode])
+		return fmt.Errorf("error send message. Code %d: %s", errCode, SendMessageErrorCodes[errCode])
 	}
 
 	return nil
@@ -129,5 +130,5 @@ func (b *Bot) CallMethod(method string, params string) (*http.Response, error) {
 
 	endpoint := apiURL + method + "?" + params + "&access_token=" + b.token + "&v=" + apiVersion
 
-	return http.Get(endpoint)
+	return http.Get(endpoint) //nolint:gosec
 }

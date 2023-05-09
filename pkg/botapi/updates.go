@@ -32,10 +32,11 @@ func (b *Bot) GetUpdates() ([]Update, error) {
 	u.RawQuery = params.Encode()
 	url := fmt.Sprintf("%v", u)
 
-	res, err := http.Get(url)
+	res, err := http.Get(url) //nolint:gosec
 	if err != nil {
 		return nil, err
 	}
+	defer res.Body.Close()
 
 	dec := json.NewDecoder(res.Body)
 
@@ -49,7 +50,7 @@ func (b *Bot) GetUpdates() ([]Update, error) {
 		if resBody["failed"].(float64) == 1 {
 			b.PollConfig.ts = int(resBody["ts"].(float64))
 		} else { // update key and ts if error is not 1
-			err := b.InitSession()
+			err = b.InitSession()
 			if err != nil {
 				return nil, err
 			}
@@ -91,7 +92,7 @@ func (b *Bot) GetUpdatesChan() UpdatesChannel {
 			if err != nil {
 				log.Println(err)
 				log.Println("Failed to get updates, retrying in 5 seconds...")
-				time.Sleep(5 * time.Second)
+				time.Sleep(5 * time.Second) //nolint:gomnd,nolintlint //
 
 				continue
 			}

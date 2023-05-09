@@ -20,7 +20,7 @@ const (
 	apiVersion            = "5.131"
 )
 
-// InitSession is using for init session
+// InitSession is using for init session.
 func (b *Bot) InitSession() error {
 	details, err := b.getLongPollSession()
 	if err != nil {
@@ -38,7 +38,7 @@ func (b *Bot) InitSession() error {
 	return nil
 }
 
-// getLongPollSession is for get session data
+// getLongPollSession is for get session data.
 func (b *Bot) getLongPollSession() (*longPollDetails, error) {
 	params := url.Values{}
 	params.Add("access_token", b.token)
@@ -49,10 +49,11 @@ func (b *Bot) getLongPollSession() (*longPollDetails, error) {
 	u.RawQuery = params.Encode()
 	url := fmt.Sprintf("%v", u)
 
-	response, err := http.Get(url)
+	response, err := http.Get(url) //nolint:gosec
 	if err != nil {
 		return &longPollDetails{}, err
 	}
+	defer response.Body.Close()
 
 	dec := json.NewDecoder(response.Body)
 
