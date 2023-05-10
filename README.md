@@ -35,3 +35,9 @@ docker build -t vk_task .
 ```bash
 docker run vk_task
 ```
+
+## Баги
+
+В ходе создания собственной (не)много кривой реализации VK API для Golang, в документации были найдены некоторые ошибки. Баг-репорты:
+- https://vk.com/bug543956
+- https://vk.com/bug543941
